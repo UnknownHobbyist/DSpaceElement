@@ -1,0 +1,94 @@
+<style media="screen">
+  .centerize{
+    height: 80%;
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .container{
+
+    max-width: 500px;
+
+  }
+
+  .box{
+    border: 1px solid #ccc;
+    height: 600px;
+    margin-top: 20px;
+  }
+
+  .sort{
+    height: 50px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-bottom: 1px solid #ccc;
+  }
+
+  .sort_button{
+    cursor: pointer;
+    height: 35px;
+
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    margin: 5px;
+
+    transition: 0.2s background-color;
+  }
+
+  .sort_button:hover{
+    background-color: #ccc;
+  }
+
+  .sort_button:active{
+    background-color: #3a3a3a;
+  }
+
+  .article{
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+  }
+
+  .warning{
+    width: calc(100% - 20px);
+
+    border: 1px solid orange;
+    border-radius: 10px;
+    background: yellow;
+
+    margin-bottom: 20px;
+    padding: 10px;
+  }
+
+</style>
+
+<div class="centerize">
+  <div class="container">
+
+    <div class="warning">
+      Momentan funktioniert die Applikation leider noch nicht, da die Verbindung zur REST API der UniBw Website immer durch einen 403 Fehler abgebrochen wird. Deswegen gibt es stattdessen Testdaten zur Realisierung.
+    </div>
+    <div class="box">
+      <div class="sort">
+        <button type="button" (click)="sortByTitle()" class="sort_button" clickable>sort by title</button>
+        <button type="button" (click)="sortByReleaseDate()" class="sort_button" clickable>sort by release date</button>
+        <button type="button" (click)="sortByCitations()" class="sort_button" clickable>sort by citations</button>
+      </div>
+      <div class="list" *ngFor="let abstract of abstracts">
+        <div class="article">
+          <div class="article_title"><b>title:</b> {{abstract.title}}</div>
+          <div class="article_authors"><b>authors:</b> {{abstract.authors}}</div>
+          <div class="article_description"><b>description:</b> {{abstract.description}}</div>
+          <div class="article_citations"><b>citations:</b> {{abstract.citations}}</div>
+          <div class="article_release_date"><b>releaseDate:</b> {{abstract.releaseDate}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
