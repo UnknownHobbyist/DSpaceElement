@@ -166,9 +166,6 @@ export class AbstractService {
   generateXSRF(): Promise<string>{
     return fetch('https://webtech.informatik.unibw-muenchen.de/server/api/authn', {credentials: 'include'})
     .then(res => {
-
-      res.headers.forEach(console.log);
-      console.log(res);
       let super_token = res.headers.get('dspace-xsrf-token');
       if(super_token != null){
         this.updateXSRF(super_token);
