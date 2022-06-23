@@ -9,15 +9,24 @@
   }
 
   .container{
-
     max-width: 500px;
-
   }
 
   .box{
     border: 1px solid #ccc;
-    height: 600px;
+    width: 700px;
     margin-top: 20px;
+  }
+
+  .list{
+    height: 700px;
+    width: 100%;
+    overflow-y: auto;
+  }
+
+  .article{
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
   }
 
   .sort{
@@ -30,7 +39,7 @@
     border-bottom: 1px solid #ccc;
   }
 
-  .sort_button{
+  .button{
     cursor: pointer;
     height: 35px;
 
@@ -41,21 +50,34 @@
 
     transition: 0.2s background-color;
   }
-
-  .sort_button:hover{
+  .button:hover{
     background-color: #ccc;
   }
-
-  .sort_button:active{
+  .button:active{
     background-color: #3a3a3a;
   }
 
-  .article{
-    padding: 10px;
+  .search{
+    height: 50px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border-bottom: 1px solid #ccc;
   }
 
-  .warning{
+  .search_bar{
+    width: 300px;
+    height: 23px;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    font-size: 16px;
+    padding: 5px;
+    margin: 5px;
+  }
+
+  /* .warning{
     width: calc(100% - 20px);
 
     border: 1px solid orange;
@@ -64,29 +86,126 @@
 
     margin-bottom: 20px;
     padding: 10px;
-  }
+  } */
 
 </style>
+<style>
+  /*loading animation from https://loading.io/css/*/
+  .lds-roller {
+    display: inline-block;
+    position: relative;
+    width: 80px;
+    height: 80px;
+  }
+  .lds-roller div {
+    animation: lds-roller 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    transform-origin: 40px 40px;
+  }
+  .lds-roller div:after {
+    content: " ";
+    display: block;
+    position: absolute;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: black;
+    margin: -4px 0 0 -4px;
+  }
+  .lds-roller div:nth-child(1) {
+    animation-delay: -0.036s;
+  }
+  .lds-roller div:nth-child(1):after {
+    top: 63px;
+    left: 63px;
+  }
+  .lds-roller div:nth-child(2) {
+    animation-delay: -0.072s;
+  }
+  .lds-roller div:nth-child(2):after {
+    top: 68px;
+    left: 56px;
+  }
+  .lds-roller div:nth-child(3) {
+    animation-delay: -0.108s;
+  }
+  .lds-roller div:nth-child(3):after {
+    top: 71px;
+    left: 48px;
+  }
+  .lds-roller div:nth-child(4) {
+    animation-delay: -0.144s;
+  }
+  .lds-roller div:nth-child(4):after {
+    top: 72px;
+    left: 40px;
+  }
+  .lds-roller div:nth-child(5) {
+    animation-delay: -0.18s;
+  }
+  .lds-roller div:nth-child(5):after {
+    top: 71px;
+    left: 32px;
+  }
+  .lds-roller div:nth-child(6) {
+    animation-delay: -0.216s;
+  }
+  .lds-roller div:nth-child(6):after {
+    top: 68px;
+    left: 24px;
+  }
+  .lds-roller div:nth-child(7) {
+    animation-delay: -0.252s;
+  }
+  .lds-roller div:nth-child(7):after {
+    top: 63px;
+    left: 17px;
+  }
+  .lds-roller div:nth-child(8) {
+    animation-delay: -0.288s;
+  }
+  .lds-roller div:nth-child(8):after {
+    top: 56px;
+    left: 12px;
+  }
+  @keyframes lds-roller {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  .loader_wrapper{
+    position: relative;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+</style>
+
 
 <div class="centerize">
   <div class="container">
 
-    <div class="warning">
+    <!-- <div class="warning">
       Momentan funktioniert die Applikation leider noch nicht, da die Verbindung zur REST API der UniBw Website immer durch einen 403 Fehler abgebrochen wird. Deswegen gibt es stattdessen Testdaten zur Realisierung.
-    </div>
+    </div> -->
     <div class="box">
-      <div class="sort">
-        <button type="button" (click)="sortByTitle()" class="sort_button" clickable>sort by title</button>
-        <button type="button" (click)="sortByReleaseDate()" class="sort_button" clickable>sort by release date</button>
-        <button type="button" (click)="sortByCitations()" class="sort_button" clickable>sort by citations</button>
+      <div class="search">
+        <input (input)="search($event)" class="search_bar" placeholder="search...">
+        <!-- <button class="button" (click)="search()">search</button> -->
+        <button type="button" (click)="sortByTitle()" class="button" clickable>sort by title</button>
+        <button type="button" (click)="sortByReleaseDate()" class="button" clickable>sort by release date</button>
       </div>
-      <div class="list" *ngFor="let abstract of abstracts">
-        <div class="article">
-          <div class="article_title"><b>title:</b> {{abstract.title}}</div>
-          <div class="article_authors"><b>authors:</b> {{abstract.authors}}</div>
-          <div class="article_description"><b>description:</b> {{abstract.description}}</div>
-          <div class="article_citations"><b>citations:</b> {{abstract.citations}}</div>
-          <div class="article_release_date"><b>releaseDate:</b> {{abstract.releaseDate}}</div>
+      <div class="list" id="list">
+        <div class="loader_wrapper" id="loader"><div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div>
+        <div class="article" #article *ngFor="let abstract of abstracts">
+          <b>title: </b><span [innerHTML]="abstract.title | hightlight: Searchl"></span><br>
+          <b>authors: </b><span [innerHTML]="abstract.authors | hightlight: Searchl"></span><br>
+          <span><b>description: </b> {{abstract.description}}</span><br>
+          <span><b>releaseDate: </b> {{abstract.releaseDate}}</span><br>
         </div>
       </div>
     </div>

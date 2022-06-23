@@ -5,13 +5,18 @@ import { AppComponent } from './app.component';
 
 import { AbstractComponent } from './abstract/abstract.component';
 
+import { HttpClientModule } from '@angular/common/http';
+import { HightlightPipe } from './hightlight.pipe';
+
 @NgModule({
   declarations: [
     AppComponent,
-    AbstractComponent
+    AbstractComponent,
+    HightlightPipe
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

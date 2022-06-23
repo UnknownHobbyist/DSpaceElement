@@ -20,15 +20,18 @@
     "module": "es2020",
     "lib": [
       "es2020",
+      "ES2021.String",
       "dom"
     ],
     "resolveJsonModule": true,
     "esModuleInterop": true,
+    "strictPropertyInitialization": false
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
-    "strictTemplates": true
+    "strictTemplates": true,
+    "strictPropertyInitialization": false
   }
 }
